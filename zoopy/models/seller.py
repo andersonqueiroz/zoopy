@@ -51,3 +51,8 @@ def get_documents(seller_id):
 def transfers(seller_id):
     url = f'{marketplace.get_full_url()}{BASE_MODEL_URL}/{seller_id}/transfers'
     return get(url)
+
+#Contas bancárias
+def bank_accounts(seller_id):
+    url = f'{marketplace.get_full_url()}{BASE_MODEL_URL}/{seller_id}/bank_accounts'
+    return get(url)
