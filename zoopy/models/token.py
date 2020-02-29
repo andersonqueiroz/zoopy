@@ -27,3 +27,7 @@ def attach_card(token_id, customer_id):
     url =  f'{marketplace.get_full_url()}{BASE_MODEL_CARD_URL}'
     data = {'customer':customer_id, 'token':token_id}
     return post(end_point=url, data=data)
+
+def delete_bank_account(bank_account_id):
+    url = f'{marketplace.get_full_url()}{BASE_MODEL_BANK_ACCOUNT_URL}/{bank_account_id}'
+    return delete(url)
