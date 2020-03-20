@@ -3,12 +3,16 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 BASE_URL = 'https://api.zoop.ws/v1'
+BASE_URL_V2 = 'https://api.zoop.ws/v2'
 BASE_URL_BETA = 'https://api-beta.zoop.ws/v2'
 
 TOKEN = None
 MARKETPLACE_ID = None
 
-def get_base_url(is_beta=False):
+def get_base_url(is_beta=False, is_v2=False):
+    if is_v2:
+        return BASE_URL_V2
+
     return BASE_URL_BETA if is_beta else BASE_URL
 
 def validate_response(zoopy_response):
@@ -32,15 +36,15 @@ def authentication_key(api_key=None, marketplace_id=None):
     MARKETPLACE_ID = marketplace_id
 
 
-def get(end_point, params = {}, is_beta=False):
-    base_url = get_base_url(is_beta)
+def get(end_point, params = {}, is_beta=False, is_v2=False):
+    base_url = get_base_url(is_beta, is_v2)
     url = f'{base_url}{end_point}'
     zoopy_response = requests.get(url, params=params, headers=headers(), auth=TOKEN)    
     return validate_response(zoopy_response)
 
 
-def post(end_point, data = {}, files = {}, is_beta=False):
-    base_url = get_base_url(is_beta)
+def post(end_point, data = {}, files = {}, is_beta=False, is_v2=False):
+    base_url = get_base_url(is_beta, is_v2)
     url = f'{base_url}{end_point}'
     if files:
         zoopy_response = requests.post(url, data=data, files=files, auth=TOKEN)
@@ -49,8 +53,8 @@ def post(end_point, data = {}, files = {}, is_beta=False):
     return validate_response(zoopy_response)
 
 
-def put(end_point, data = {}, files = {}, is_beta=False):
-    base_url = get_base_url(is_beta)
+def put(end_point, data = {}, files = {}, is_beta=False, is_v2=False):
+    base_url = get_base_url(is_beta, is_v2)
     url = f'{base_url}{end_point}'
     if files:
         zoopy_response = requests.put(url, data=data, files=files, auth=TOKEN)
@@ -59,8 +63,8 @@ def put(end_point, data = {}, files = {}, is_beta=False):
     return validate_response(zoopy_response)
 
 
-def delete(end_point, is_beta=False):
-    base_url = get_base_url(is_beta)
+def delete(end_point, is_beta=False, is_v2=False):
+    base_url = get_base_url(is_beta, is_v2)
     url = f'{base_url}{end_point}'
     zoopy_response = requests.delete(url, headers=headers(), auth=TOKEN)
     return validate_response(zoopy_response)

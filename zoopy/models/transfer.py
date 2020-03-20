@@ -22,7 +22,7 @@ def create(bank_account_id, params):
 
 def create_p2p(owner, receiver, params):
     url = f'{marketplace.get_full_url()}{BASE_MODEL_URL}/{owner}/to/{receiver}'
-    return post(end_point=url, data=params)
+    return post(end_point=url, data=params, is_v2=True)
 
 def delete(transfer_id):
     url = f'{marketplace.get_full_url()}{BASE_MODEL_URL}/{transfer_id}'
